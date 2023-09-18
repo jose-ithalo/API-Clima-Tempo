@@ -1,30 +1,40 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  private idUser: number = 2;
   private userList: User[] = [
     {
       id: 1,
-      name_user: 'Jonas Moura',
+      username: 'Jonas Moura',
       email: 'jonas@email.com',
       password: '123'
     },
     {
       id: 2,
-      name_user: 'Rafael Ferreira',
+      username: 'Rafael Ferreira',
       email: 'rafa@email.com',
       password: 'teste'
     }
   ];
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    this.idUser += 1;
+    const newUser: User = {
+      id: this.idUser,
+      username: createUserDto.username,
+      email: createUserDto.email,
+      password: createUserDto.password
+    }
+
+    this.userList.push(newUser);
+
+    return createUserDto;
   }
 
   findAll() {
@@ -32,14 +42,35 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+
+    const foundUser: User = this.userList.find((user) => user.id === id);
+
+    if (!foundUser) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    return foundUser;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+
+    const updatedUser: User = this.findOne(id);
+
+    updatedUser.username = updateUserDto.username;
+    updatedUser.email = updateUserDto.email;
+    updatedUser.password = updateUserDto.password;
+
+    return;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+
+    const deletedUser = this.findOne(id);
+
+    const indexUser: number = this.userList.findIndex((user) => user.id === id);
+
+    this.userList.splice(indexUser, 1);
+
+    return `Usuário ${deletedUser.username} excluído com sucesso.`;
   }
 }
