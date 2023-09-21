@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import { knex } from 'src/dataBase/connection';
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  private idUser: number = 2;
   private userList: User[] = [
     {
       id: 1,
@@ -23,18 +24,34 @@ export class UsersService {
     }
   ];
 
-  create(createUserDto: CreateUserDto) {
-    this.idUser += 1;
-    const newUser: User = {
-      id: this.idUser,
-      username: createUserDto.username,
-      email: createUserDto.email,
-      password: createUserDto.password
+  verifyFields(createUserDto: CreateUserDto) {
+    if (!createUserDto.username || !createUserDto.username || !createUserDto.password) {
+      throw new BadRequestException('Preencha todos os campos');
+    }
+  }
+
+  async create(createUserDto: CreateUserDto) {
+    this.verifyFields(createUserDto);
+
+    if (createUserDto.password.length < 5) {
+      throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.')
     }
 
-    this.userList.push(newUser);
+    const existingEmail = await knex('users').where('email', createUserDto.email).first();
 
-    return createUserDto;
+    if (existingEmail) {
+      throw new NotAcceptableException('Este e-mail de usuário já existe, não será possível cadastrá-lo.');
+    }
+
+    const encryptedPassword: string = await bcrypt.hash(createUserDto.password, 10);
+
+    await knex('users').insert({
+      username: createUserDto.username,
+      email: createUserDto.email,
+      password: encryptedPassword
+    });
+
+    return;
   }
 
   findAll() {
