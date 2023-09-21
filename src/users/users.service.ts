@@ -54,8 +54,11 @@ export class UsersService {
     return;
   }
 
-  findAll() {
-    return this.userList;
+  async findAll() {
+
+    const allUser: User[] = await knex.select('id', 'username', 'email').from('users');
+
+    return allUser;
   }
 
   findOne(id: number) {
