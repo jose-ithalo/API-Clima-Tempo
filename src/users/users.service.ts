@@ -61,9 +61,11 @@ export class UsersService {
     return allUser;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
 
-    const foundUser: User = this.userList.find((user) => user.id === id);
+    const foundUser: User = await knex.select('id', 'username', 'email')
+      .from('users')
+      .where({ id }).first();
 
     if (!foundUser) {
       throw new NotFoundException('Usuário não encontrado');
@@ -74,7 +76,9 @@ export class UsersService {
 
   update(id: number, updateUserDto: UpdateUserDto) {
 
-    const updatedUser: User = this.findOne(id);
+    const foundUser: User = this.userList.find((user) => user.id === id);
+
+    const updatedUser: User = foundUser;
 
     updatedUser.username = updateUserDto.username;
     updatedUser.email = updateUserDto.email;
@@ -85,7 +89,9 @@ export class UsersService {
 
   remove(id: number) {
 
-    const deletedUser = this.findOne(id);
+    const foundUser: User = this.userList.find((user) => user.id === id);
+
+    const deletedUser = foundUser;
 
     const indexUser: number = this.userList.findIndex((user) => user.id === id);
 
