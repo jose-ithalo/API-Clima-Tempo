@@ -74,15 +74,34 @@ export class UsersService {
     return foundUser;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
 
-    const foundUser: User = this.userList.find((user) => user.id === id);
+    const foundUser: User = await this.findOne(id);
 
-    const updatedUser: User = foundUser;
+    const { username, email } = updateUserDto;
+    let { password } = updateUserDto;
 
-    updatedUser.username = updateUserDto.username;
-    updatedUser.email = updateUserDto.email;
-    updatedUser.password = updateUserDto.password;
+    if (!username && !email && !password) {
+      throw new NotAcceptableException('Preencha ao menos um campo.');
+    }
+
+    if (password) {
+      if (password.length < 5) {
+        throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
+      }
+
+      password = await bcrypt.hash(password, 10);
+    }
+
+    if (email !== foundUser.email) {
+      const existingEmail: User[] = await knex('users').where('email', email);
+
+      if (existingEmail.length > 0) {
+        throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.')
+      }
+    }
+
+    await knex('users').update({ username, email, password }).where({ id });
 
     return;
   }
