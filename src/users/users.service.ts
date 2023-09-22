@@ -34,7 +34,7 @@ export class UsersService {
     this.verifyFields(createUserDto);
 
     if (createUserDto.password.length < 5) {
-      throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.')
+      throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
     }
 
     const existingEmail = await knex('users').where('email', createUserDto.email).first();
@@ -75,11 +75,10 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-
-    const foundUser: User = await this.findOne(id);
-
     const { username, email } = updateUserDto;
     let { password } = updateUserDto;
+
+    const foundUser: User = await this.findOne(id);
 
     if (!username && !email && !password) {
       throw new NotAcceptableException('Preencha ao menos um campo.');
@@ -97,7 +96,7 @@ export class UsersService {
       const existingEmail: User[] = await knex('users').where('email', email);
 
       if (existingEmail.length > 0) {
-        throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.')
+        throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.');
       }
     }
 
@@ -106,16 +105,13 @@ export class UsersService {
     return;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
 
-    const foundUser: User = this.userList.find((user) => user.id === id);
+    const foundUser: User = await this.findOne(id);
 
-    const deletedUser = foundUser;
+    await knex('users').del().where({ id });
 
-    const indexUser: number = this.userList.findIndex((user) => user.id === id);
+    return `Usuário ${foundUser.username} excluído com sucesso.`;
 
-    this.userList.splice(indexUser, 1);
-
-    return `Usuário ${deletedUser.username} excluído com sucesso.`;
   }
 }
