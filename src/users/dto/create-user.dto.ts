@@ -1,7 +1,14 @@
 /* eslint-disable prettier/prettier */
 
+import { IsString } from "class-validator";
+
 export class CreateUserDto {
-    username: string;
-    email: string;
-    password: string;
+    @IsString()
+    readonly username: string;
+
+    @IsString()
+    readonly email: string;
+
+    @IsString()
+    readonly password: string;
 }
