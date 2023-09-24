@@ -13,7 +13,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) { }
 
   @Post()
-  create(@Body() createLoginDto: CreateLoginDto) {
-    return this.loginService.create(createLoginDto);
+  login(@Body() createLoginDto: CreateLoginDto) {
+    return this.loginService.signIn(createLoginDto);
   }
 }
