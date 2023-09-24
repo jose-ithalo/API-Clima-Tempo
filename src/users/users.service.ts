@@ -9,20 +9,6 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  private userList: User[] = [
-    {
-      id: 1,
-      username: 'Jonas Moura',
-      email: 'jonas@email.com',
-      password: '123'
-    },
-    {
-      id: 2,
-      username: 'Rafael Ferreira',
-      email: 'rafa@email.com',
-      password: 'teste'
-    }
-  ];
 
   verifyFields(createUserDto: CreateUserDto) {
     if (!createUserDto.username || !createUserDto.username || !createUserDto.password) {
