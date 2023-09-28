@@ -30,7 +30,7 @@ export class LoginService {
     }
 
     return {
-      access_token: await this.jwtService.signAsync({ id: foundUser[0].id })
+      access_token: await this.jwtService.signAsync({ sub: foundUser[0].id })
     };
 
   }
