@@ -20,7 +20,7 @@ export class LoggerMiddleware implements NestMiddleware {
 
   async use(req: RequestWithUserRole, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
-    if (!authorization || authorization === 'Bearer') {
+    if (!authorization || authorization === 'Bearer undefined' || authorization === 'Bearer') {
       throw new UnauthorizedException('Você não está logado. Faça o login!');
     }
 
@@ -38,7 +38,9 @@ export class LoggerMiddleware implements NestMiddleware {
       next();
 
     } catch (error) {
-      throw new InternalServerErrorException('Houve interno no servidor.');
+      console.log(authorization);
+
+      throw new InternalServerErrorException('Houve um erro interno no servidor.');
     }
   }
 }
