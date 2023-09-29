@@ -23,7 +23,7 @@ export class UsersService {
       throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
     }
 
-    const existingEmail = await knex('users').where('email', createUserDto.email).first();
+    const existingEmail: User = await knex('users').where('email', createUserDto.email).first();
 
     if (existingEmail) {
       throw new NotAcceptableException('Este e-mail de usuário já existe, não será possível cadastrá-lo.');
