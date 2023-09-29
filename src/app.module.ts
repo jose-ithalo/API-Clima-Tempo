@@ -1,11 +1,15 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { LoginModule } from './login/login.module';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
   imports: [UsersModule, LoginModule],
   controllers: [],
   providers: [],
 })
-// eslint-disable-next-line prettier/prettier
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('users');
+  }
+}
