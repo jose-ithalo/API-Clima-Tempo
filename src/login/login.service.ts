@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateLoginDto } from './dto/create-login.dto';
-import { User } from 'src/users/entities/user.entity';
+import IUser from 'src/interfaces/user';
 
 @Injectable()
 export class LoginService {
@@ -17,7 +17,7 @@ export class LoginService {
 
     const { email, password } = createLoginDto;
 
-    const foundUser: User[] = await knex('users').where('email', email);
+    const foundUser = await knex<IUser>('users').where('email', email);
 
     if (foundUser.length === 0) {
       throw new UnauthorizedException('E-mail ou senha não confere.');
