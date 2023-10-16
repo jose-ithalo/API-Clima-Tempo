@@ -38,7 +38,6 @@ export class LoggerMiddleware implements NestMiddleware {
       next();
 
     } catch (error) {
-      console.log(authorization);
 
       throw new InternalServerErrorException('Houve um erro interno no servidor.');
     }
