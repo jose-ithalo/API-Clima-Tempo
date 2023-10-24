@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 
 import { Injectable } from '@nestjs/common';
+import { knex } from 'src/dataBase/connection';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 
@@ -10,8 +12,11 @@ export class LocationsService {
     return 'This action adds a new location';
   }
 
-  findAll() {
-    return `This action returns all locations`;
+  async findAll() {
+
+    const allCities = await knex('locations');
+
+    return allCities;
   }
 
   findOne(id: number) {
