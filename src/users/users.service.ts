@@ -100,4 +100,8 @@ export class UsersService {
     return `Usuário ${foundUser.username} excluído com sucesso.`;
 
   }
+
+  addCity(newCity: string) {
+    return newCity
+  }
 }
