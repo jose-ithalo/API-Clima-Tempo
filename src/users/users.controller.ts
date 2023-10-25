@@ -32,6 +32,11 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
+  @Patch('/cities')
+  addCity(@Body() newCity: string) {
+    return this.usersService.addCity(newCity);
+  }
+
   @Patch(':id')
   @HttpCode(204)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
