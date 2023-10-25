@@ -6,11 +6,10 @@ import {
 } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { LoginModule } from './login/login.module';
-import { LocationsModule } from './locations/locations.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
-  imports: [UsersModule, LoginModule, LocationsModule],
+  imports: [UsersModule, LoginModule],
   controllers: [],
   providers: [],
 })
