@@ -9,9 +9,11 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateCityDto } from './dto/create-city.dto';
 
 @Controller('users')
 export class UsersController {
@@ -33,8 +35,9 @@ export class UsersController {
   }
 
   @Patch('/cities')
-  addCity(@Body() newCity: string) {
-    return this.usersService.addCity(newCity);
+  @HttpCode(204)
+  addCity(@Body() createCityDto: CreateCityDto) {
+    return this.usersService.addCity(createCityDto);
   }
 
   @Patch(':id')
