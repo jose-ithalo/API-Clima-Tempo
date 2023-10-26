@@ -1,14 +1,28 @@
 /* eslint-disable prettier/prettier */
 
-import { BadRequestException, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+  Scope
+} from '@nestjs/common';
+
 import { knex } from 'src/dataBase/connection';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateCityDto } from './dto/create-city.dto';
 import { User } from './entities/user.entity';
 
-@Injectable()
+import { REQUEST } from '@nestjs/core';
+import RequestWithUserRole from 'src/interfaces/request';
+
+@Injectable({ scope: Scope.REQUEST })
 export class UsersService {
+
+  constructor(@Inject(REQUEST) readonly req: RequestWithUserRole) { }
 
   verifyFields(createUserDto: CreateUserDto) {
     if (!createUserDto.username || !createUserDto.username || !createUserDto.password) {
@@ -101,7 +115,18 @@ export class UsersService {
 
   }
 
-  addCity(newCity: string) {
-    return newCity
+  async addCity(createCityDto: CreateCityDto) {
+    const { city } = createCityDto;
+    const { id: userId } = this.req.user as Pick<User, 'id'>;
+
+    const loggerUser = await knex('users').where('id', userId).first();
+    const cityList: string[] = loggerUser.cities;
+    cityList.push(city);
+
+    await knex('users').update({
+      cities: cityList
+    }).where('id', userId);
+
+    return;
   }
 }
