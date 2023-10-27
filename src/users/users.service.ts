@@ -129,4 +129,12 @@ export class UsersService {
 
     return;
   }
+
+  async showCities() {
+    const { id: userId } = this.req.user as Pick<User, 'id'>;
+
+    const userCities: Pick<User, 'cities'> = await knex.select('cities').from('users').where('id', userId).first();
+
+    return userCities
+  }
 }
