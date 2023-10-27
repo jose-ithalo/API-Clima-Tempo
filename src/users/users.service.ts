@@ -133,8 +133,20 @@ export class UsersService {
   async showCities() {
     const { id: userId } = this.req.user as Pick<User, 'id'>;
 
-    const userCities: Pick<User, 'cities'> = await knex.select('cities').from('users').where('id', userId).first();
+    const loggerUser = await knex('users').where('id', userId).first();
+    const cityList: string[] = loggerUser.cities;
 
-    return userCities
+    return cityList
+  }
+
+  async removeCity() {
+    const { id: userId } = this.req.user as Pick<User, 'id'>;
+
+    const loggerUser = await knex('users').where('id', userId).first();
+    const cityList: string[] = loggerUser.cities;
+
+    console.log(userId);
+
+    return cityList
   }
 }
