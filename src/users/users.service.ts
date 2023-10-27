@@ -139,14 +139,21 @@ export class UsersService {
     return cityList
   }
 
-  async removeCity() {
+  async removeCity(useCityDto: UseCityDto) {
+    const { city } = useCityDto;
     const { id: userId } = this.req.user as Pick<User, 'id'>;
 
     const loggerUser = await knex('users').where('id', userId).first();
     const cityList: string[] = loggerUser.cities;
 
-    console.log(userId);
+    const newList = cityList.filter(function (item) {
+      return item !== city;
+    });
 
-    return cityList
+    await knex('users').update({
+      cities: newList
+    }).where('id', userId);
+
+    return `Cidade ${city} removida com sucesso!`
   }
 }
