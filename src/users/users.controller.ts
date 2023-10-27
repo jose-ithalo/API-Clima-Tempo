@@ -51,6 +51,11 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @Delete('/cities')
+  removeCity() {
+    return this.usersService.removeCity();
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
