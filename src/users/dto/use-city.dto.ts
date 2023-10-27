@@ -2,7 +2,7 @@
 
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateCityDto {
+export class UseCityDto {
     @IsString()
     @IsNotEmpty()
     readonly city: string;

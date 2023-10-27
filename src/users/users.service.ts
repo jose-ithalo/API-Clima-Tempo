@@ -13,7 +13,7 @@ import { knex } from 'src/dataBase/connection';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateCityDto } from './dto/create-city.dto';
+import { UseCityDto } from './dto/use-city.dto';
 import { User } from './entities/user.entity';
 
 import { REQUEST } from '@nestjs/core';
@@ -115,8 +115,8 @@ export class UsersService {
 
   }
 
-  async addCity(createCityDto: CreateCityDto) {
-    const { city } = createCityDto;
+  async addCity(useCityDto: UseCityDto) {
+    const { city } = useCityDto;
     const { id: userId } = this.req.user as Pick<User, 'id'>;
 
     const loggerUser = await knex('users').where('id', userId).first();

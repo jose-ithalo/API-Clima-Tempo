@@ -13,7 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateCityDto } from './dto/create-city.dto';
+import { UseCityDto } from './dto/use-city.dto';
 
 @Controller('users')
 export class UsersController {
@@ -41,8 +41,8 @@ export class UsersController {
 
   @Patch('/cities')
   @HttpCode(204)
-  addCity(@Body() createCityDto: CreateCityDto) {
-    return this.usersService.addCity(createCityDto);
+  addCity(@Body() useCityDto: UseCityDto) {
+    return this.usersService.addCity(useCityDto);
   }
 
   @Patch(':id')
