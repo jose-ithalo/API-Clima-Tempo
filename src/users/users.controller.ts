@@ -52,8 +52,8 @@ export class UsersController {
   }
 
   @Delete('/cities')
-  removeCity() {
-    return this.usersService.removeCity();
+  removeCity(@Body() useCityDto: UseCityDto) {
+    return this.usersService.removeCity(useCityDto);
   }
 
   @Delete(':id')
