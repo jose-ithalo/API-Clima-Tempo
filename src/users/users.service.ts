@@ -121,6 +121,15 @@ export class UsersService {
 
     const loggerUser = await knex('users').where('id', userId).first();
     const cityList: string[] = loggerUser.cities;
+
+    const foundCity: string | undefined = cityList.find(function (item) {
+      return item === city
+    });
+
+    if (foundCity) {
+      throw new NotAcceptableException('Cidade já foi adicionada.');
+    }
+
     cityList.push(city);
 
     await knex('users').update({
@@ -146,7 +155,7 @@ export class UsersService {
     const loggerUser = await knex('users').where('id', userId).first();
     const cityList: string[] = loggerUser.cities;
 
-    const newList = cityList.filter(function (item) {
+    const newList: string[] = cityList.filter(function (item) {
       return item !== city;
     });
 
