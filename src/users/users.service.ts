@@ -123,7 +123,7 @@ export class UsersService {
     const cityList: string[] = loggerUser.cities;
 
     const foundCity: string | undefined = cityList.find(function (item) {
-      return item === city
+      return item.toLowerCase() === city.toLowerCase();
     });
 
     if (foundCity) {
