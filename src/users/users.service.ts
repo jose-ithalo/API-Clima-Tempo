@@ -56,7 +56,7 @@ export class UsersService {
 
   async findAll() {
 
-    const allUser: User[] = await knex.select('id', 'username', 'email').from('users');
+    const allUser: User[] = await knex.select('id', 'username', 'email').from('users').orderBy('id');
 
     return allUser;
   }
@@ -164,5 +164,16 @@ export class UsersService {
     }).where('id', userId);
 
     return `Cidade ${city} removida com sucesso!`
+  }
+
+  async detachCity(useCityDto: UseCityDto) {
+    const { city } = useCityDto;
+    const { id: userId } = this.req.user as Pick<User, 'id'>;
+
+    await knex('users').update({
+      detached: city
+    }).where('id', userId);
+
+    return `A cidade ${city} foi escolhida como destaque.`;
   }
 }
