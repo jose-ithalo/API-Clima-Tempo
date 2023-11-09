@@ -45,6 +45,11 @@ export class UsersController {
     return this.usersService.addCity(useCityDto);
   }
 
+  @Patch('/detach')
+  detach(@Body() useCityDto: UseCityDto) {
+    return this.usersService.detachCity(useCityDto);
+  }
+
   @Patch(':id')
   @HttpCode(204)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
