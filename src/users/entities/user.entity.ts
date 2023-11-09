@@ -5,5 +5,6 @@ export class User {
     username: string;
     email: string;
     cities: string[];
+    detached: string;
     password: string;
 }
