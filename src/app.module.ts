@@ -20,6 +20,7 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'users/:id', method: RequestMethod.PATCH },
         { path: 'users/:id', method: RequestMethod.DELETE },
+        { path: 'users/user', method: RequestMethod.GET },
         { path: 'users/cities', method: RequestMethod.GET },
       );
   }
