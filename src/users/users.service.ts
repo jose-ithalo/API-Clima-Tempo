@@ -5,7 +5,6 @@ import {
   Inject,
   Injectable,
   NotAcceptableException,
-  NotFoundException,
   Scope
 } from '@nestjs/common';
 
@@ -61,15 +60,13 @@ export class UsersService {
     return allUser;
   }
 
-  async findOne(id: number) {
+  async findOne() {
 
-    const foundUser: User = await knex.select('id', 'username', 'email')
+    const { id: userId } = this.req.user as Pick<User, 'id'>;
+
+    const foundUser: User = await knex.select('id', 'username', 'email', 'detached')
       .from('users')
-      .where({ id }).first();
-
-    if (!foundUser) {
-      throw new NotFoundException('Usuário não encontrado');
-    }
+      .where('id', userId).first();
 
     return foundUser;
   }
@@ -78,7 +75,7 @@ export class UsersService {
     const { username, email } = updateUserDto;
     let { password } = updateUserDto;
 
-    const foundUser: User = await this.findOne(id);
+    const foundUser: User = await this.findOne();
 
     if (!username && !email && !password) {
       throw new NotAcceptableException('Preencha ao menos um campo.');
@@ -107,7 +104,7 @@ export class UsersService {
 
   async remove(id: number) {
 
-    const foundUser: User = await this.findOne(id);
+    const foundUser: User = await this.findOne();
 
     await knex('users').del().where({ id });
 
