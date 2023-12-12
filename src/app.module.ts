@@ -7,9 +7,10 @@ import {
 import { UsersModule } from './users/users.module';
 import { LoginModule } from './login/login.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { EmailsModule } from './emails/emails.module';
 
 @Module({
-  imports: [UsersModule, LoginModule],
+  imports: [UsersModule, LoginModule, EmailsModule],
   controllers: [],
   providers: [],
 })
