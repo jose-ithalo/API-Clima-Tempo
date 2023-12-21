@@ -11,13 +11,13 @@ import { Email } from './entities/email.entity';
 export class EmailsService {
   constructor(private mailerService: MailerService) { }
 
-  async sendMail(createEmailDto: CreateEmailDto) {
+  async sendMail(createEmailDto: CreateEmailDto): Promise<string> {
     const { email } = createEmailDto;
 
     const existingEmail: Email = await knex.select('email').from('users').where('email', email).first();
 
     if (!existingEmail) {
-      throw new NotFoundException('Email não cadastrado no sistema.')
+      throw new NotFoundException('Email não cadastrado no sistema.');
     }
 
     this.mailerService.sendMail({
@@ -26,5 +26,7 @@ export class EmailsService {
       subject: 'Teste de envio da API',
       text: 'Esta mensagem foi enviada com sucesso pela API.'
     });
+
+    return 'Mensagem enviada!'
   }
 }
