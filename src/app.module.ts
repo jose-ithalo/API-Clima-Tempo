@@ -19,7 +19,7 @@ export class AppModule implements NestModule {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes(
-        { path: 'users/:id', method: RequestMethod.PATCH },
+        { path: 'users/', method: RequestMethod.PUT },
         { path: 'users/:id', method: RequestMethod.DELETE },
         { path: 'users/user', method: RequestMethod.GET },
         { path: 'users/cities', method: RequestMethod.GET },
