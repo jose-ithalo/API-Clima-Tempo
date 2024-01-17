@@ -74,38 +74,33 @@ export class UsersService {
   async update(updateUserDto: UpdateUserDto) {
     type Keys = 'id' | 'email';
     const { id: userId, email: userEmail } = this.req.user as Pick<User, Keys>;
-    const { username, email, password } = updateUserDto;
-    // let { password } = updateUserDto;
+    const { username, email } = updateUserDto;
+    let { password } = updateUserDto;
 
-    // const foundUser: User = await this.findOne();
-
-    if (!username && !email && !password) {
-      throw new NotAcceptableException('Preencha ao menos um campo.');
+    if (!username || !email) {
+      throw new NotAcceptableException('Preencha o campo nome e email.');
     }
 
-    // if (password) {
-    //   if (password.length < 5) {
-    //     throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
-    //   }
+    if (email !== userEmail) {
+      const existingEmail: User[] = await knex('users').where('email', email);
 
-    //   password = await bcrypt.hash(password, 10);
-    // }
+      if (existingEmail.length > 0) {
+        throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.');
+      }
+    }
 
-    // if (email !== foundUser.email) {
-    //   const existingEmail: User[] = await knex('users').where('email', email);
+    if (password) {
+      if (password.length < 5) {
+        throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
+      }
 
-    //   if (existingEmail.length > 0) {
-    //     throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.');
-    //   }
-    // }
+      password = await bcrypt.hash(password, 10);
 
-    // await knex('users').update({ username, email, password }).where({ id });
-
-    console.log(userId);
-    console.log(userEmail);
-    console.log(username);
-    console.log(email);
-    console.log(password);
+      await knex('users').update({ username, email, password }).where({ id: userId });
+    }
+    else {
+      await knex('users').update({ username, email }).where({ id: userId });
+    }
 
     return;
   }
