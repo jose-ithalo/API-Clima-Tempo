@@ -5,6 +5,7 @@ import {
   Post,
   Body,
   Patch,
+  Put,
   Param,
   Delete,
   HttpCode,
@@ -50,10 +51,10 @@ export class UsersController {
     return this.usersService.detachCity(useCityDto);
   }
 
-  @Patch(':id')
+  @Put()
   @HttpCode(204)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  update(@Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(updateUserDto);
   }
 
   @Delete('/cities')
