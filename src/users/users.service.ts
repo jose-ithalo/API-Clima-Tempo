@@ -71,33 +71,41 @@ export class UsersService {
     return foundUser;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const { username, email } = updateUserDto;
-    let { password } = updateUserDto;
+  async update(updateUserDto: UpdateUserDto) {
+    type Keys = 'id' | 'email';
+    const { id: userId, email: userEmail } = this.req.user as Pick<User, Keys>;
+    const { username, email, password } = updateUserDto;
+    // let { password } = updateUserDto;
 
-    const foundUser: User = await this.findOne();
+    // const foundUser: User = await this.findOne();
 
     if (!username && !email && !password) {
       throw new NotAcceptableException('Preencha ao menos um campo.');
     }
 
-    if (password) {
-      if (password.length < 5) {
-        throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
-      }
+    // if (password) {
+    //   if (password.length < 5) {
+    //     throw new NotAcceptableException('Só será aceito uma senha com no mínimo 5 caracteres.');
+    //   }
 
-      password = await bcrypt.hash(password, 10);
-    }
+    //   password = await bcrypt.hash(password, 10);
+    // }
 
-    if (email !== foundUser.email) {
-      const existingEmail: User[] = await knex('users').where('email', email);
+    // if (email !== foundUser.email) {
+    //   const existingEmail: User[] = await knex('users').where('email', email);
 
-      if (existingEmail.length > 0) {
-        throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.');
-      }
-    }
+    //   if (existingEmail.length > 0) {
+    //     throw new NotAcceptableException('Este e-mail já existe. Por favor escolha um outro.');
+    //   }
+    // }
 
-    await knex('users').update({ username, email, password }).where({ id });
+    // await knex('users').update({ username, email, password }).where({ id });
+
+    console.log(userId);
+    console.log(userEmail);
+    console.log(username);
+    console.log(email);
+    console.log(password);
 
     return;
   }
