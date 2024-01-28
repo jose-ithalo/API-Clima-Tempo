@@ -20,7 +20,7 @@ const forgetPass: string = `<!DOCTYPE html>
                 Você recebeu este email porque optou pela redifinição de senha.<br />
                 Clique no botão abaixo para trocá-la
             </p>
-            <a href="https://www.youtube.com/" target="_blank" style="margin-bottom: 20px;">
+            <a href="http://localhost:3000/Reset" target="_blank" style="margin-bottom: 20px;">
                 <button style=" background-color: #0575E6; border: transparent; border-radius: 30px; 
                 color: #fff; cursor: pointer; font-family: Roboto, sans-serif; padding: 12px 50px;">
                     Trocar
