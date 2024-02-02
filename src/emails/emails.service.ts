@@ -31,7 +31,4 @@ export class EmailsService {
     return 'Mensagem enviada!'
   }
 
-  resetPass(): string {
-    return 'Redefinir'
-  }
 }
