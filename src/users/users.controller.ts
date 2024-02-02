@@ -51,6 +51,11 @@ export class UsersController {
     return this.usersService.detachCity(useCityDto);
   }
 
+  @Patch('/reset')
+  resetPass() {
+    return this.usersService.resetPass();
+  }
+
   @Put()
   @HttpCode(204)
   update(@Body() updateUserDto: UpdateUserDto) {
