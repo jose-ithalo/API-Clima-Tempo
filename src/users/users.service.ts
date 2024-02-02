@@ -176,4 +176,8 @@ export class UsersService {
 
     return `A cidade ${city} foi escolhida como destaque.`;
   }
+
+  resetPass(): string {
+    return 'Redefinir'
+  }
 }
