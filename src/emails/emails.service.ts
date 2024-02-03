@@ -1,12 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateEmailDto } from './dto/create-email.dto';
-
 import { knex } from 'src/dataBase/connection';
 import { MailerService } from '@nestjs-modules/mailer';
 
+import { CreateEmailDto } from './dto/create-email.dto';
 import { Email } from './entities/email.entity';
-import forgetPass from './htmls/forgetPass';
+import { ForgotPass } from './htmls/ForgotPass';
 
 @Injectable()
 export class EmailsService {
@@ -21,11 +20,17 @@ export class EmailsService {
       throw new NotFoundException('Email não cadastrado no sistema.');
     }
 
+    const htmlBody = new ForgotPass();
+
+    htmlBody.createCode();
+
+    const htmlContent = htmlBody.createBody();
+
     this.mailerService.sendMail({
       to: email,
       from: `Joseph Dev <${process.env.EMAIL_USER}>`,
       subject: 'Teste de envio da API',
-      html: forgetPass
+      html: htmlContent
     });
 
     return 'Mensagem enviada!'
