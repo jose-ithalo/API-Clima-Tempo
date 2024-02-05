@@ -24,6 +24,10 @@ export class EmailsService {
 
     htmlBody.createCode();
 
+    await knex('users').update({
+      reset_key: htmlBody.msgKey
+    }).where({ email });
+
     const htmlContent = htmlBody.createBody();
 
     this.mailerService.sendMail({
