@@ -2,7 +2,7 @@
 import * as crypto from 'crypto';
 
 export class ForgotPass {
-    private msgKey: string
+    public msgKey: string
 
     createCode() {
         this.msgKey = crypto.randomBytes(4).toString('hex');
@@ -26,7 +26,7 @@ export class ForgotPass {
                     Clima Tempo
                 </h1>
                 <p style="font-size: 120%; font-family: Roboto, sans-serif; font-weight: 400; text-align: center;">
-                    Você recebeu este email porque optou pela redifinição de senha.<br />
+                    Você recebeu este email porque optou pela redefinição de senha.<br />
                 </p>
                 <span style="color: #a18181; font-size: 100%; font-family: Roboto, sans-serif; font-weight: 600;">
                     Use esta chave para redefinir
@@ -37,7 +37,7 @@ export class ForgotPass {
                     </span>
                 </div>
                 <p style="font-size: 120%; font-family: Roboto, sans-serif; font-weight: 400; text-align: center;">
-                    Clique no botão abaixo para trocá-la
+                    Clique no botão abaixo para trocar a senha
                 </p>
                 <a href="http://localhost:3000/Reset" target="_blank" style="margin-bottom: 20px;">
                     <button style=" background-color: #0575E6; border: transparent; border-radius: 30px; 
