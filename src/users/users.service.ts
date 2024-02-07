@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UseCityDto } from './dto/use-city.dto';
+import { ResetPassDto } from './dto/reset-pass.dto';
 import { User } from './entities/user.entity';
 
 import { REQUEST } from '@nestjs/core';
@@ -177,7 +178,12 @@ export class UsersService {
     return `A cidade ${city} foi escolhida como destaque.`;
   }
 
-  resetPass(): string {
+  resetPass(resetPassDto: ResetPassDto): string {
+    const { key, password } = resetPassDto;
+
+    console.log(key);
+    console.log(password);
+
     return 'Redefinir'
   }
 }
