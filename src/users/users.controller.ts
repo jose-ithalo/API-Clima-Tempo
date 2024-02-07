@@ -15,6 +15,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UseCityDto } from './dto/use-city.dto';
+import { ResetPassDto } from './dto/reset-pass.dto';
 
 @Controller('users')
 export class UsersController {
@@ -52,8 +53,8 @@ export class UsersController {
   }
 
   @Patch('/reset')
-  resetPass() {
-    return this.usersService.resetPass();
+  resetPass(@Body() resetPassDto: ResetPassDto) {
+    return this.usersService.resetPass(resetPassDto);
   }
 
   @Put()
