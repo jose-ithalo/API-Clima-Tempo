@@ -6,5 +6,6 @@ export class User {
     email: string;
     cities: string[];
     detached: string;
+    reset_key: string;
     password: string;
 }
