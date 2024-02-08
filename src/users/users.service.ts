@@ -5,6 +5,7 @@ import {
   Inject,
   Injectable,
   NotAcceptableException,
+  NotFoundException,
   Scope
 } from '@nestjs/common';
 
@@ -178,12 +179,20 @@ export class UsersService {
     return `A cidade ${city} foi escolhida como destaque.`;
   }
 
-  resetPass(resetPassDto: ResetPassDto): string {
-    const { key, password } = resetPassDto;
+  async resetPass(resetPassDto: ResetPassDto) {
+    const { key } = resetPassDto;
+    let { password } = resetPassDto;
 
-    console.log(key);
-    console.log(password);
+    const foundUser: User[] = await knex('users').where('reset_key', key);
 
-    return 'Redefinir'
+    if (foundUser.length === 0) {
+      throw new NotFoundException('Chave incorreta! Verifique a numeração.')
+    }
+
+    password = await bcrypt.hash(password, 10);
+
+    await knex('users').update({ password }).where('reset_key', key);
+
+    return 'Senha redefinida com sucesso!';
   }
 }
