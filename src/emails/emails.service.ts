@@ -32,8 +32,8 @@ export class EmailsService {
 
     this.mailerService.sendMail({
       to: email,
-      from: `Joseph Dev <${process.env.EMAIL_USER}>`,
-      subject: 'Teste de envio da API',
+      from: `Clima Tempo <${process.env.EMAIL_USER}>`,
+      subject: 'Redefinição de Senha',
       html: htmlContent
     });
 
