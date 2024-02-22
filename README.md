@@ -28,3 +28,24 @@
     <td>v8.11.3</td>
   </tr>
 </table>
+
+## Controladores
+
+### Users
+#### `POST` `/users`
+>Endpoint para o cadastro de novos usuários.
+
+Recebe no corpo da requisição um objeto JSON com as seguintes informações: username, email e
+password.  
+Essas informações devem ser inseridas nos respectivos campos como no exemplo abaixo.
+
+```json=
+{
+  "username": "Nome Usuário",
+  "email": "user@email.com",
+  "password": "teste"
+}
+```
++ O id do usuário é gerado automaticamente.
++ A senha deve possuir no mínimo 5 caracteres.
++ Todos os campos são obrigatórios
