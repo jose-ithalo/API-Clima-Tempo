@@ -49,3 +49,9 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 + O id do usuário é gerado automaticamente.
 + A senha deve possuir no mínimo 5 caracteres.
 + Todos os campos são obrigatórios
+
+#### `GET` `/users`
+>A função desse endpoint é a de listar todos os usuários cadastrados no sistema.
+
++ Não recebe informações no corpo da requisição.
+
