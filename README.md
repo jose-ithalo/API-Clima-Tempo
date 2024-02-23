@@ -54,4 +54,9 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 >A função desse endpoint é a de listar todos os usuários cadastrados no sistema.
 
 + Não recebe informações no corpo da requisição.
+  
+#### `GET` `/users/user`
+>Já neste, retorna os dados do usuário que está logado.
+
++ Não recebe informações no corpo da requisição.
 
