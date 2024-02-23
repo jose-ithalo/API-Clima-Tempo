@@ -60,3 +60,8 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 
 + Não recebe informações no corpo da requisição.
 
+#### `GET` `/users/cities`
+>Endpoint utilizado para obter a lista de cidades escolhidas do usuário logado.
+
++ Não recebe informações no corpo da requisição.
+
