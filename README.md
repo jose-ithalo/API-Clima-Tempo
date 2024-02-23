@@ -90,3 +90,18 @@ existentes na lista.
   "city": "Londrina"
 }
 ```
+#### `PATCH` `/users/reset`
+>Aqui temos o endpoint para resetar a senha do usuário caso ele esqueça.
+
+Recebe a chave (key) e a senha (password), que será a nova, através de um objeto JSON no corpo  
+da requisição como no exemplo abaixo.
+
+```json=
+{
+  "key": "a1a1a1",
+  "password": "teste"
+}
+```
+
++ Ambos os campos são obrigatórios
++ O valor do campo key deve ser o mesmo da coluna reset_key do usuário
