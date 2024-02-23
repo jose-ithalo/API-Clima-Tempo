@@ -65,3 +65,16 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 
 + Não recebe informações no corpo da requisição.
 
+#### `PATCH` `/users/cities`
+>Com esse endpoint é possível adicionar novas cidades à lista do usuário.
+
+Para adição de uma nova cidade o campo city deve ser preenchido com o nome dela e o próprio  
+sistema adicionará esso novo dado na lista de cidades do respectivo usuário
+
+```json=
+{
+  "city": "São Paulo"
+}
+```
+
++ Não será aceito uma cidade que já exista na lista daquele usuário.
