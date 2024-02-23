@@ -69,7 +69,7 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 >Com esse endpoint é possível adicionar novas cidades à lista do usuário.
 
 Para adição de uma nova cidade o campo city deve ser preenchido com o nome dela e o próprio  
-sistema adicionará esso novo dado na lista de cidades do respectivo usuário
+sistema adicionará esso novo dado na lista de cidades do respectivo usuário.
 
 ```json=
 {
@@ -78,3 +78,15 @@ sistema adicionará esso novo dado na lista de cidades do respectivo usuário
 ```
 
 + Não será aceito uma cidade que já exista na lista daquele usuário.
+
+#### `PATCH` `/users/detach`
+>Aqui o usuário poderá deixar como destaque uma cidade de sua lista na Dashboard do site.
+
+Igualmente ao exemplo a cima, o campo city deve ser preenchido mas com uma das cidades já  
+existentes na lista.
+
+```json=
+{
+  "city": "Londrina"
+}
+```
