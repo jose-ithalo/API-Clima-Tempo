@@ -48,7 +48,7 @@ Essas informações devem ser inseridas nos respectivos campos como no exemplo a
 ```
 + O id do usuário é gerado automaticamente.
 + A senha deve possuir no mínimo 5 caracteres.
-+ Todos os campos são obrigatórios
++ Todos os campos são obrigatórios.
 
 #### `GET` `/users`
 >A função desse endpoint é a de listar todos os usuários cadastrados no sistema.
@@ -103,5 +103,21 @@ da requisição como no exemplo abaixo.
 }
 ```
 
-+ Ambos os campos são obrigatórios
-+ O valor do campo key deve ser o mesmo da coluna reset_key do usuário
++ Ambos os campos são obrigatórios.
++ O valor do campo key deve ser o mesmo da coluna reset_key do usuário.
+
+#### `PUT` `/users`
+>Através desse endpoint é realizada a atualização do usuário.
+
+No corpo da requisição recebe um objeto JSON com as seguintes informações: username, email e
+password.
+
+```json=
+{
+  "username": "Novo Usuário",
+  "email": "new@email.com",
+  "password": "teste2"
+}
+```
+
++ Todos os campos são opcionais.
