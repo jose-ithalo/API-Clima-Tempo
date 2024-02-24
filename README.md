@@ -121,3 +121,15 @@ password.
 ```
 
 + Todos os campos são opcionais.
+
+#### `DELETE` `/users/cities`
+>Endpoint para remoção de cidades da lista do usuário.
+
+Esse método também deve receber um objeto JSON informando o nome da cidade que deseja  
+remover da lista.
+
+```json=
+{
+  "city": "Londrina"
+}
+```
