@@ -31,7 +31,7 @@
 
 ## Controladores
 
-### Users
+### Users:
 #### `POST` `/users`
 >Endpoint para o cadastro de novos usuários.
 
@@ -133,3 +133,18 @@ remover da lista.
   "city": "Londrina"
 }
 ```
+### Login:
+#### `POST` `/login`
+>Este é o endpoint para realizar o login e ter acesso ao site.
+
+No objeto JSON deve ser informado o email e a senha. Veja o exemplo abaixo. 
+
+```json=
+{
+  "email": "user@email.com",
+  "password": "teste"
+}
+```
+
++ Ambos os campos são obrigatórios.
++ Após o login ser feito com sucesso será retornado um token de acesso.
