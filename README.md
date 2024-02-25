@@ -104,7 +104,7 @@ da requisição como no exemplo abaixo.
 ```
 
 + Ambos os campos são obrigatórios.
-+ O valor do campo key deve ser o mesmo da coluna reset_key do usuário.
++ O valor do campo key deve ser o mesmo da coluna reset_key do usuário para a comparação.
 
 #### `PUT` `/users`
 >Através desse endpoint é realizada a atualização do usuário.
@@ -148,3 +148,19 @@ No objeto JSON deve ser informado o email e a senha. Veja o exemplo abaixo.
 
 + Ambos os campos são obrigatórios.
 + Após o login ser feito com sucesso será retornado um token de acesso.
+
+### Emails:
+#### `POST` `/emails`
+>Endpoint responsável pelo envio por email da chave para redefinição de senha.
+
+Neste caso, o usuário que já foi cadastrado no sistema informará seu email no corpo  
+da requisição e assim a API se encarregará de enviar uma chave para alteração de senha.
+
+```json=
+{
+  "email": "user@email.com"
+}
+```
+
++ O valor da chave será gerado aleatoriamente.
++ Após realizar a ação, o valor da chave será inserido na coluna reset_key do usuário.
