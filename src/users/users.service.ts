@@ -186,7 +186,7 @@ export class UsersService {
     const foundUser: User[] = await knex('users').where('reset_key', key);
 
     if (foundUser.length === 0) {
-      throw new NotFoundException('Chave incorreta! Verifique a numeração.')
+      throw new NotFoundException('Chave incorreta! Verifique os valores.')
     }
 
     password = await bcrypt.hash(password, 10);
