@@ -38,7 +38,7 @@ export class ForgotPass {
                 <p style="font-size: 120%; font-family: Roboto, sans-serif;">
                     Clique no botão abaixo para trocar a senha
                 </p>
-                <a href="http://localhost:3000/Reset" target="_blank" style="margin-bottom: 20px;">
+                <a href="https://clima-tempo-joseph.netlify.app/Reset" target="_blank" style="margin-bottom: 20px;">
                     <button style=" background-color: #0575E6; border: transparent; border-radius: 30px; 
                     color: #fff; cursor: pointer; font-family: Roboto, sans-serif; padding: 12px 50px;">
                         Trocar
