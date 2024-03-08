@@ -12,7 +12,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-  await app.listen(3003, (): void => {
+  await app.listen(process.env.PORT || 3003, (): void => {
     console.log('Server on working...');
   });
 }
