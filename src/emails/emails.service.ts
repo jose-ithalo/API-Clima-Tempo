@@ -28,13 +28,14 @@ export class EmailsService {
       reset_key: htmlBody.msgKey
     }).where({ email });
 
-    const htmlContent = htmlBody.createBody();
+    // const htmlContent = htmlBody.createBody();
 
     this.mailerService.sendMail({
       to: email,
       from: `Clima Tempo <${process.env.EMAIL_USER}>`,
       subject: 'Redefinição de Senha',
-      html: htmlContent
+      // html: htmlContent
+      text: 'Testando app'
     });
 
     return 'Mensagem enviada!'
