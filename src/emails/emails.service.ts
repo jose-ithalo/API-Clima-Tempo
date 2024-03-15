@@ -30,7 +30,7 @@ export class EmailsService {
 
     const htmlContent = htmlBody.createBody();
 
-    this.mailerService.sendMail({
+    await this.mailerService.sendMail({
       to: email,
       from: `Clima Tempo <${process.env.EMAIL_USER}>`,
       subject: 'Redefinição de Senha',
