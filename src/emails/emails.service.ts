@@ -56,7 +56,7 @@ export class EmailsService {
     };
 
     try {
-      transport.sendMail(mailOption)
+      await transport.sendMail(mailOption)
     } catch (error) {
       console.log(error);
 
