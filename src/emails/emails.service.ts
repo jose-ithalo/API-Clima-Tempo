@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { knex } from 'src/dataBase/connection';
-import { MailerService } from '@nestjs-modules/mailer';
+// import { MailerService } from '@nestjs-modules/mailer';
+import { ConfigService } from '@nestjs/config';
+import * as nodemailer from 'nodemailer';
 
 import { CreateEmailDto } from './dto/create-email.dto';
 import { Email } from './entities/email.entity';
@@ -9,7 +11,21 @@ import { ForgotPass } from './htmls/ForgotPass';
 
 @Injectable()
 export class EmailsService {
-  constructor(private mailerService: MailerService) { }
+  constructor(private configService: ConfigService) { }
+
+  mailTransport() {
+    const transporter = nodemailer.createTransport({
+      host: this.configService.get<string>('EMAIL_HOST'),
+      port: this.configService.get<number>('EMAIL_PORT'),
+      secure: false,
+      auth: {
+        user: this.configService.get<string>('EMAIL_USER'),
+        pass: this.configService.get<string>('EMAIL_PASS'),
+      },
+    });
+
+    return transporter
+  }
 
   async sendMail(createEmailDto: CreateEmailDto): Promise<string> {
     const { email } = createEmailDto;
@@ -28,15 +44,23 @@ export class EmailsService {
       reset_key: htmlBody.msgKey
     }).where({ email });
 
-    // const htmlContent = htmlBody.createBody();
+    const htmlContent = htmlBody.createBody();
 
-    this.mailerService.sendMail({
+    const transport = this.mailTransport()
+
+    const mailOption = {
       to: email,
-      from: `Clima Tempo <${process.env.EMAIL_USER}>`,
+      from: `Clima Tempo <${this.configService.get<string>('EMAIL_USER')}>`,
       subject: 'Redefinição de Senha',
-      // html: htmlContent
-      text: 'Testando app'
-    });
+      html: htmlContent
+    };
+
+    try {
+      transport.sendMail(mailOption)
+    } catch (error) {
+      console.log(error);
+
+    }
 
     return 'Mensagem enviada!'
   }
